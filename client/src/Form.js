@@ -8,9 +8,7 @@ const OnboardingForm = ({ values, touched, errors, status }) => {
 	console.log('this is touched', touched);
 	useEffect(
 		() => {
-			if (status) {
-				setUsers([ [ ...users, status ] ]);
-			}
+			status && setUsers((users) => [ ...users, status ]);
 		},
 		[ status ],
 	);
@@ -35,6 +33,14 @@ const OnboardingForm = ({ values, touched, errors, status }) => {
 				<br />
 				<button type='submit'>Submit</button>
 			</Form>
+
+			{users.map((user) => (
+				<ul key={user.id}>
+					<li>Name: {user.username}</li>
+					<li>Email: {user.email}</li>
+					<li>Password: {user.password}</li>
+				</ul>
+			))}
 		</div>
 	);
 };
