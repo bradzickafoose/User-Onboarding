@@ -2,12 +2,13 @@ import React from 'react';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 
-const OnboardingForm = ({ values }) => {
+const OnboardingForm = ({ values, touched, errors }) => {
 	return (
 		<div className='onboarding-form'>
 			<h1>User Onboarding</h1>
 			<Form>
 				<Field type='text' name='username' placeholder='Name' />
+				{touched.username && errors.species && <p className='error'>{errors.username}</p>}
 				<br />
 				<Field type='email' name='email' placeholder='Email' />
 				<br />
@@ -34,6 +35,12 @@ const FormikOnboardingForm = withFormik({
 			tos      : tos || false,
 		};
 	},
+
+	validationSchema : Yup.object().shape({
+		username : Yup.string().required('Please enter your name.'),
+		email    : Yup.string().required('Please enter your email address.'),
+		password : Yup.string('Please choose a password.'),
+	}),
 })(OnboardingForm);
 console.log('This is the HOC', FormikOnboardingForm);
 export default FormikOnboardingForm;
