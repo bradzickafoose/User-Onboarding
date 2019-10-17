@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 
 const OnboardingForm = ({ values, touched, errors, status }) => {
+	const [ users, setUsers ] = useState([]);
+	console.log('this is touched', touched);
+	useEffect(
+		() => {
+			if (status) {
+				setUsers([ [ ...users, status ] ]);
+			}
+		},
+		[ status ],
+	);
 	return (
 		<div className='onboarding-form'>
 			<h1>User Onboarding</h1>
