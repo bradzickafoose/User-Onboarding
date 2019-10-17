@@ -1,8 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 
-const OnboardingForm = ({ values, touched, errors }) => {
+const OnboardingForm = ({ values, touched, errors, status }) => {
 	return (
 		<div className='onboarding-form'>
 			<h1>User Onboarding</h1>
@@ -43,6 +44,17 @@ const FormikOnboardingForm = withFormik({
 		email    : Yup.string().required('Please enter your email address.'),
 		password : Yup.string('Please choose a password.'),
 	}),
+
+	handleSubmit(values, { setStatus }) {
+		axios
+			// values is our object with all our data on it.
+			.post('https://reqres.in/api/users/', values)
+			.then((res) => {
+				setStatus(res.data);
+				console.log(res);
+			})
+			.catch((err) => console.log(err.response));
+	},
 })(OnboardingForm);
 console.log('This is the HOC', FormikOnboardingForm);
 export default FormikOnboardingForm;
