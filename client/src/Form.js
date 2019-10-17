@@ -8,11 +8,13 @@ const OnboardingForm = ({ values, touched, errors }) => {
 			<h1>User Onboarding</h1>
 			<Form>
 				<Field type='text' name='username' placeholder='Name' />
-				{touched.username && errors.species && <p className='error'>{errors.username}</p>}
+				{touched.username && errors.username && <p className='error'>{errors.username}</p>}
 				<br />
 				<Field type='email' name='email' placeholder='Email' />
+				{touched.email && errors.email && <p className='error'>{errors.email}</p>}
 				<br />
 				<Field type='password' name='password' placeholder='Password' />
+				{touched.password && errors.password && <p className='error'>{errors.password}</p>}
 				<br />
 				<label className='checkbox-container'>
 					<Field type='checkbox' name='tos' checked={values.tos} />
